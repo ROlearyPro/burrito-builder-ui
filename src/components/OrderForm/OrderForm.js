@@ -6,16 +6,19 @@ function OrderForm(props) {
   const [ingredients, setIngredients] = useState([]);
   let submittable = false;
   function handleSubmit(e) {
-    e.preventDefault();
-    
+    // e.preventDefault();
+
     // clearInputs();
-    console.log(name!=="")
+    console.log(name !== "")
     console.log(ingredients.length)
     if (name !== "" && ingredients.length !== 0) {
       clearInputs()
       postOrder(name, ingredients);
+      
     }
     else {
+      let incorrectText = document.querySelector('.subButton');
+      incorrectText.innerHTML = "Not able to submit; enter name and ingredient, then try again."
       console.log("not submittable")
     }
   }
@@ -88,7 +91,8 @@ function OrderForm(props) {
 
       <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
 
-      <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
+      <button className="subButton"
+        onClick={(e) => handleSubmit(e)}>Submit Order</button>
     </form>
   );
 }
