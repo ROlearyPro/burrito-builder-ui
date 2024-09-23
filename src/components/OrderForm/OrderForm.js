@@ -6,7 +6,7 @@ function OrderForm(props) {
   const [ingredients, setIngredients] = useState([]);
   let submittable = false;
   function handleSubmit(e) {
-    // e.preventDefault();
+    e.preventDefault();
 
     // clearInputs();
     console.log(name !== "")

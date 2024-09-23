@@ -6,7 +6,7 @@ export const getOrders = () => {
 export const postOrder = (nameVal, ingredientVals)=>
 {
   console.log(JSON.stringify({name:nameVal, ingredients:ingredientVals}))
-  fetch("http://localhost:3001/api/v1/orders", {
+  fetch("http://localhost:3000/api/v1/orders", {
     method:'POST',
     body: JSON.stringify({name:nameVal, ingredients:ingredientVals}),
     headers:{
