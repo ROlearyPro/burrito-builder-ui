@@ -2,13 +2,14 @@ import React from "react";
 import "./Orders.css";
 
 const Orders = (props) => {
-  const orderEls = props.orders.map((order) => {
+  console.log(props.orders)
+  const orderEls = props.orders.map((order, index) => {
     return (
-      <div className="order">
+      <div key={index} className="order">
         <h3>{order.name}</h3>
         <ul className="ingredient-list">
-          {order.ingredients.map((ingredient) => {
-            return <li>{ingredient}</li>;
+          {order.ingredients.map((ingredient, index2) => {
+            return <li key = {index2}> {ingredient}</li>;
           })}
         </ul>
       </div>

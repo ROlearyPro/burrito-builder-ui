@@ -3,16 +3,44 @@ import { useState } from "react";
 function OrderForm(props) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
-
+  let submittable = false;
   function handleSubmit(e) {
     e.preventDefault();
-    clearInputs();
+    console.log(name)
+    console.log(ingredients);
+    // clearInputs();
+    // if (submittable!==false)
+    // {
+    //   clearInputs()
+    // }
   }
 
   function clearInputs() {
     setName("");
     setIngredients([]);
   };
+
+  function addName(newName) {
+    setName(newName);
+    // if (name !== "" && ingredients.length !== 0) {
+    //   submittable = true;
+    // }
+    // else {
+    //   submittable = false
+    // }
+  }
+  function addIngredient(e) {
+    // e.preventDefault();
+    console.log(e)
+    setIngredients([...ingredients, e])
+    console.log(ingredients)
+    // if (name !== "" && ingredients.length !== 0) {
+    //   submittable = true;
+    // }
+    // else {
+    //   submittable = false
+    // }
+  }
 
   const possibleIngredients = [
     "beans",
@@ -33,7 +61,8 @@ function OrderForm(props) {
       <button
         key={ingredient}
         name={ingredient}
-        // onClick={(e) => }
+        value={ingredient}
+        onClick={(e) => addIngredient(e.target.name)}
       >
         {ingredient}
       </button>
@@ -47,14 +76,14 @@ function OrderForm(props) {
         placeholder="Name"
         name="name"
         value={name}
-        // onChange={(e) => }
+        onChange={(e) => addName(e.target.value)}
       />
 
       {ingredientButtons}
 
       <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
 
-      <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
+      {/* <button onClick={(e) => handleSubmit(e)}>Submit Order</button> */}
     </form>
   );
 }
