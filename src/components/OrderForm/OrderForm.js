@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { postOrder } from "../../apiCalls";
 
 function OrderForm(props) {
   const [name, setName] = useState("");
@@ -6,13 +7,17 @@ function OrderForm(props) {
   let submittable = false;
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(name)
-    console.log(ingredients);
+    
     // clearInputs();
-    // if (submittable!==false)
-    // {
-    //   clearInputs()
-    // }
+    console.log(name!=="")
+    console.log(ingredients.length)
+    if (name !== "" && ingredients.length !== 0) {
+      clearInputs()
+      postOrder(name, ingredients);
+    }
+    else {
+      console.log("not submittable")
+    }
   }
 
   function clearInputs() {
@@ -21,25 +26,25 @@ function OrderForm(props) {
   };
 
   function addName(newName) {
-    setName(newName);
-    // if (name !== "" && ingredients.length !== 0) {
-    //   submittable = true;
-    // }
-    // else {
-    //   submittable = false
-    // }
+    // e.preventDefault();
+    setName(newName.target.value);
+    if (name !== "" && ingredients.length !== 0) {
+      submittable = true;
+    }
+    else {
+      submittable = false
+    }
   }
   function addIngredient(e) {
-    // e.preventDefault();
-    console.log(e)
-    setIngredients([...ingredients, e])
+    e.preventDefault();
+    setIngredients([...ingredients, e.target.value])
     console.log(ingredients)
-    // if (name !== "" && ingredients.length !== 0) {
-    //   submittable = true;
-    // }
-    // else {
-    //   submittable = false
-    // }
+    if (name !== "" && ingredients.length !== 0) {
+      submittable = true;
+    }
+    else {
+      submittable = false
+    }
   }
 
   const possibleIngredients = [
@@ -62,7 +67,7 @@ function OrderForm(props) {
         key={ingredient}
         name={ingredient}
         value={ingredient}
-        onClick={(e) => addIngredient(e.target.name)}
+        onClick={(e) => addIngredient(e)}
       >
         {ingredient}
       </button>
@@ -76,14 +81,14 @@ function OrderForm(props) {
         placeholder="Name"
         name="name"
         value={name}
-        onChange={(e) => addName(e.target.value)}
+        onChange={(e) => addName(e)}
       />
 
       {ingredientButtons}
 
       <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
 
-      {/* <button onClick={(e) => handleSubmit(e)}>Submit Order</button> */}
+      <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
     </form>
   );
 }
