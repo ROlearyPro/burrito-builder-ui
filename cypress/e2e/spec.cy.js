@@ -45,7 +45,14 @@ describe("empty spec", () => {
   {
     cy.get('input').type("George");
     cy.get('.subButton').click();
+    cy.get('.subButton').should('contain', 'Not able to submit; enter name and ingredient, then try again.');
+
     cy.wait(400)
+    cy.visit('http://localhost:3000/');
+    cy.get('[name="steak"]').click();
+    cy.get('[name="beans"]').click();
+    cy.get('[name="lettuce"]').click();
+    cy.get('.subButton').click();
 
     cy.get('.subButton').should('contain', 'Not able to submit; enter name and ingredient, then try again.');
        cy.wait(400)
